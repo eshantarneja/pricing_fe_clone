@@ -1,0 +1,13 @@
+[build]
+  command = "next build"
+  publish = ".next"
+
+[build.environment]
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+[dev]
+  command = "next dev"
+  port = 3000
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
