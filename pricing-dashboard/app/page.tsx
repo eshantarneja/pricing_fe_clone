@@ -24,7 +24,7 @@ export default function Dashboard() {
             Moesle Pricing Portal
           </h1>
           <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Search any Moesle fresh-beef SKU to view AI-recommended pricing and insights
+            Search any SKU to view AI-recommended pricing and insights
           </p>
         </div>
 
