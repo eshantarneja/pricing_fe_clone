@@ -1,8 +1,4 @@
 {
-  "projectSettings": {
-    "framework": "nextjs",
-    "buildCommand": "cd pricing-dashboard && npm run build",
-    "outputDirectory": "pricing-dashboard/.next",
-    "rootDirectory": "pricing-dashboard"
-  }
+  "buildCommand": "cd pricing-dashboard && npm run build",
+  "outputDirectory": "pricing-dashboard/.next"
 }
