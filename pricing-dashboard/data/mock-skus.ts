@@ -42,7 +42,7 @@ const manualShowcaseSKUs: SKU[] = [
     ai_price: 4.88,
     last_cost: 4.47,
     next_po_cost: 4.25,
-    effective_cost: 4.47,
+    effective_cost: 4.25,
     benchmark_price: 5.99, // Using Michael's Price as a benchmark
     inventory_lbs: 10810.99,
     weeks_on_hand: 12.7,
