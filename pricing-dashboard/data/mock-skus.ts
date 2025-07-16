@@ -1,39 +1,204 @@
+export interface SKU {
+  id: string
+  sku_code: string
+  description: string
+  category: string
+  storage: string
+  ai_price: number
+  last_cost: number
+  next_po_cost: number | null
+  effective_cost: number
+  benchmark_price: number
+  inventory_lbs: number
+  weeks_on_hand: number
+  incoming_pos_week: number
+  recent_gp_percent: number
+  lifetime_gp_percent: number
+  median_gp_percent: number
+  usda_today: number
+  seven_day_delta: number
+  thirty_vs_ninety_delta: number
+  one_year_delta: number
+  rationale: string[]
+  updated_at: string
+}
+
 export interface POData {
-  po_number: string;
-  required_date: string;
-  delivery_quantity: number;
-  cost: number;
+  po_number: string
+  required_date: string
+  delivery_quantity: number
+  cost: number
 }
 
 // PO data for the popup
+// Manually defined showcase SKUs that will override auto-generated ones
+const manualShowcaseSKUs: SKU[] = [
+  {
+    id: "BF101",
+    sku_code: "BF101",
+    description: "Premium Ribeye Steak 12oz",
+    category: "Beef",
+    storage: "Frozen",
+    ai_price: 24.99,
+    last_cost: 18.50,
+    next_po_cost: 17.25,
+    effective_cost: 18.50,
+    benchmark_price: 26.75,
+    inventory_lbs: 450,
+    weeks_on_hand: 1.8,
+    incoming_pos_week: 2400,
+    recent_gp_percent: 32.5,
+    lifetime_gp_percent: 30.2,
+    median_gp_percent: 31.4,
+    usda_today: 19.85,
+    seven_day_delta: 2.1,
+    thirty_vs_ninety_delta: 0.5,
+    one_year_delta: 12.8,
+    rationale: [
+      "Premium quality cut with consistent demand",
+      "Recent supplier agreement reduced PO cost by 7%",
+      "Competitor pricing trending upward by 3-5%",
+      "Seasonal demand increase projected for Q3",
+      "Historical GP stability within target range"
+    ],
+    updated_at: new Date("2025-07-15T08:30:00Z").toISOString()
+  },
+  {
+    id: "PL105",
+    sku_code: "PL105",
+    description: "Organic Chicken Breast 2lb",
+    category: "Poultry",
+    storage: "Refrigerated",
+    ai_price: 15.99,
+    last_cost: 10.75,
+    next_po_cost: 9.99,
+    effective_cost: 10.50,
+    benchmark_price: 16.49,
+    inventory_lbs: 1250,
+    weeks_on_hand: 3.2,
+    incoming_pos_week: 3500,
+    recent_gp_percent: 38.4,
+    lifetime_gp_percent: 35.8,
+    median_gp_percent: 37.1,
+    usda_today: 11.25,
+    seven_day_delta: -0.8,
+    thirty_vs_ninety_delta: -1.2,
+    one_year_delta: 5.3,
+    rationale: [
+      "Organic certification premium maintains strong margin",
+      "Recent market analysis shows price elasticity",
+      "Bulk purchasing agreement secured favorable cost",
+      "Competitive positioning against conventional products",
+      "Consumer trend toward organic continues to grow"
+    ],
+    updated_at: new Date("2025-07-14T14:15:00Z").toISOString()
+  },
+  {
+    id: "SF220",
+    sku_code: "SF220",
+    description: "Wild Caught Salmon Fillet 1lb",
+    category: "Seafood",
+    storage: "Frozen",
+    ai_price: 21.99,
+    last_cost: 16.25,
+    next_po_cost: 15.75,
+    effective_cost: 16.00,
+    benchmark_price: 22.50,
+    inventory_lbs: 780,
+    weeks_on_hand: 2.4,
+    incoming_pos_week: 1800,
+    recent_gp_percent: 29.7,
+    lifetime_gp_percent: 28.3,
+    median_gp_percent: 29.0,
+    usda_today: 17.10,
+    seven_day_delta: 1.5,
+    thirty_vs_ninety_delta: 2.2,
+    one_year_delta: 8.7,
+    rationale: [
+      "Wild caught premium allows for higher price point",
+      "Seasonal availability impacts supply chain",
+      "Health-conscious consumer segment growing",
+      "Promotional campaign scheduled for next month",
+      "Sustainable sourcing certification adds value"
+    ],
+    updated_at: new Date("2025-07-16T09:45:00Z").toISOString()
+  }
+];
+
 export const upcomingPOs: Record<string, POData[]> = {
+  // Detailed PO data for our showcase SKUs
+  "BF101": [
+    {
+      po_number: "PO-45782",
+      required_date: "2025-08-01",
+      delivery_quantity: 1200,
+      cost: 17.25
+    },
+    {
+      po_number: "PO-45840",
+      required_date: "2025-08-15",
+      delivery_quantity: 1200,
+      cost: 17.10
+    },
+    {
+      po_number: "PO-46012",
+      required_date: "2025-08-30",
+      delivery_quantity: 1500,
+      cost: 16.95
+    }
+  ],
+  "PL105": [
+    {
+      po_number: "PO-45688",
+      required_date: "2025-07-25",
+      delivery_quantity: 1800,
+      cost: 9.99
+    },
+    {
+      po_number: "PO-45720",
+      required_date: "2025-08-10",
+      delivery_quantity: 1700,
+      cost: 9.85
+    }
+  ],
+  "SF220": [
+    {
+      po_number: "PO-45825",
+      required_date: "2025-07-28",
+      delivery_quantity: 900,
+      cost: 15.75
+    },
+    {
+      po_number: "PO-46035",
+      required_date: "2025-08-20",
+      delivery_quantity: 900,
+      cost: 15.50
+    }
+  ],
+  // Keep the original example POs for backward compatibility
   "BF001": [{
     po_number: "37918",
     required_date: "2025-07-11",
     delivery_quantity: 9240,
     cost: 0.01
   }],
-  "BF002": [{
-    po_number: "38225",
-    required_date: "2025-07-15",
-    delivery_quantity: 5600,
-    cost: 3.25
-  }],
-  "PL001": [{
-    po_number: "37919",
+  "PL104": [{
+    po_number: "38155",
     required_date: "2025-07-12",
-    delivery_quantity: 4200,
-    cost: 7.50
+    delivery_quantity: 5400,
+    cost: 3.10
   }]
 };
 
 // Extended mock data with 1000+ SKUs for pagination testing
-export const mockSKUs = [
-  // Original SKUs
+export const mockSKUs: SKU[] = [
+  // Include our manually defined showcase SKUs first
+  ...manualShowcaseSKUs,
+  // Then include auto-generated SKUs (but skip IDs that would conflict with showcase ones)
   {
     id: "BF001",
     sku_code: "BF001",
-    description: "Prime Ribeye Steak 12oz",
+    description: "Prime Ribeye Steak 8oz",
     category: "Beef",
     storage: "Fresh",
     ai_price: 24.99,
@@ -57,9 +222,9 @@ export const mockSKUs = [
       "Recent GP performance exceeds lifetime average",
       "Benchmark comparison suggests room for competitive pricing",
       "Seasonal demand patterns favor current price point",
-      "Supply chain costs have stabilized this quarter",
+      "Supply chain costs have stabilized this quarter"
     ],
-    updated_at: "2024-01-15T14:30:00Z",
+    updated_at: "2024-01-15T14:30:00Z"
   },
   {
     id: "BF002",
@@ -69,9 +234,12 @@ export const mockSKUs = [
     storage: "Fresh",
     ai_price: 6.49,
     last_cost: 4.25,
+    next_po_cost: 4.15,
+    effective_cost: 4.20,
     benchmark_price: 6.99,
     inventory_lbs: 1200,
     weeks_on_hand: 1.8,
+    incoming_pos_week: 3500,
     recent_gp_percent: 34.7,
     lifetime_gp_percent: 36.2,
     median_gp_percent: 35.8,
@@ -96,9 +264,12 @@ export const mockSKUs = [
     storage: "Fresh",
     ai_price: 12.99,
     last_cost: 8.75,
+    next_po_cost: 8.50,
+    effective_cost: 8.65,
     benchmark_price: 13.99,
     inventory_lbs: 680,
     weeks_on_hand: 1.5,
+    incoming_pos_week: 2100,
     recent_gp_percent: 32.6,
     lifetime_gp_percent: 34.1,
     median_gp_percent: 33.4,
@@ -122,9 +293,12 @@ export const mockSKUs = [
     storage: "Fresh",
     ai_price: 18.99,
     last_cost: 13.25,
+    next_po_cost: 13.00,
+    effective_cost: 13.15,
     benchmark_price: 19.99,
     inventory_lbs: 320,
     weeks_on_hand: 0.8,
+    incoming_pos_week: 1500,
     recent_gp_percent: 30.2,
     lifetime_gp_percent: 33.7,
     median_gp_percent: 32.1,
@@ -148,9 +322,12 @@ export const mockSKUs = [
     storage: "Frozen",
     ai_price: 5.99,
     last_cost: 3.85,
+    next_po_cost: 3.75,
+    effective_cost: 3.80,
     benchmark_price: 6.49,
     inventory_lbs: 890,
     weeks_on_hand: 3.2,
+    incoming_pos_week: 2800,
     recent_gp_percent: 35.7,
     lifetime_gp_percent: 34.9,
     median_gp_percent: 35.2,
@@ -174,9 +351,12 @@ export const mockSKUs = [
     storage: "Frozen",
     ai_price: 22.99,
     last_cost: 16.5,
+    next_po_cost: 16.25,
+    effective_cost: 16.35,
     benchmark_price: 24.99,
     inventory_lbs: 0,
     weeks_on_hand: 0,
+    incoming_pos_week: 1800,
     recent_gp_percent: 28.3,
     lifetime_gp_percent: 31.2,
     median_gp_percent: 29.8,
