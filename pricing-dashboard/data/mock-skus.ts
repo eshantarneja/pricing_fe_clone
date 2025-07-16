@@ -41,7 +41,7 @@ const manualShowcaseSKUs: SKU[] = [
     storage: "Frozen", // Assumed, since not labeled frozen
     ai_price: 4.88,
     last_cost: 4.47,
-    next_po_cost: 0.0,
+    next_po_cost: 4.25,
     effective_cost: 4.47,
     benchmark_price: 5.99, // Using Michael's Price as a benchmark
     inventory_lbs: 10810.99,
@@ -64,7 +64,7 @@ const manualShowcaseSKUs: SKU[] = [
       "  Cutting margin 3.8 pts is meaningful yet controlled",
       "  Stays within historical GP band (**6.7%–14.3%**); avoids price war bottom",
       "**Strategy**",
-      "  Implement **7.0% margin** (~$4.84 sell price)",
+      "  Implement **7.6% margin** (~$4.78 sell price)",
       "  ~4% price drop aimed at accelerating depletion while protecting some profit",
       "  Monitor weekly lift target, be ready to tighten further once inventory normalizes"
     ],
@@ -204,11 +204,11 @@ const manualShowcaseSKUs: SKU[] = [
 
 export const upcomingPOs: Record<string, POData[]> = {
   // Detailed PO data for our showcase SKUs
-  "15021320": [
+  "BF050": [
     {
       po_number: "PO-47123",
       required_date: "2025-07-30",
-      delivery_quantity: 1500,
+      delivery_quantity: 1000,
       cost: 4.25
     },
     {
@@ -218,7 +218,7 @@ export const upcomingPOs: Record<string, POData[]> = {
       cost: 4.20
     }
   ],
-  "SKU002": [
+  "BF002": [
     {
       po_number: "PO-46890",
       required_date: "2025-08-05",
@@ -228,7 +228,7 @@ export const upcomingPOs: Record<string, POData[]> = {
     {
       po_number: "PO-47005",
       required_date: "2025-08-20",
-      delivery_quantity: 1500,
+      delivery_quantity: 1000,
       cost: 10.65
     }
   ],
