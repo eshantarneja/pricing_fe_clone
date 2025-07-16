@@ -115,12 +115,29 @@ export function SKUCard({ sku }: SKUCardProps) {
             <Card className="bg-slate-50">
               <CardContent className="p-4">
                 <div className="max-h-40 overflow-y-auto space-y-2">
-                  {sku.rationale.map((reason, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
-                      <p className="text-sm text-slate-700">{reason}</p>
-                    </div>
-                  ))}
+                  {sku.rationale.map((reason, index) => {
+                    const isSubbullet = reason.startsWith("  ");
+                    
+                    // Process text for bold formatting
+                    const processedText = (isSubbullet ? reason.substring(2) : reason);
+                    
+                    // Split by ** markers to identify bold sections
+                    const parts = processedText.split(/\*\*/g);
+                    
+                    return (
+                      <div key={index} className={`flex items-start gap-2 ${isSubbullet ? 'ml-6' : ''}`}>
+                        <div className={`${isSubbullet ? 'w-1.5 h-1.5' : 'w-2 h-2'} bg-blue-500 rounded-full mt-2 flex-shrink-0`} />
+                        <p className="text-sm text-slate-700">
+                          {parts.map((part, partIndex) => {
+                            // Every odd index part is bolded (0-indexed)
+                            return partIndex % 2 === 1 ? 
+                              <span key={partIndex} className="font-bold">{part}</span> : 
+                              <span key={partIndex}>{part}</span>;
+                          })}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>

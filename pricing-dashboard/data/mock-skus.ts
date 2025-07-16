@@ -34,35 +34,112 @@ export interface POData {
 // Manually defined showcase SKUs that will override auto-generated ones
 const manualShowcaseSKUs: SKU[] = [
   {
-    id: "BF101",
-    sku_code: "BF101",
-    description: "Premium Ribeye Steak 12oz",
+    id: "15021320",
+    sku_code: "15021320",
+    description: "Short Loin 0X1, Mex Gusi",
     category: "Beef",
-    storage: "Frozen",
-    ai_price: 24.99,
-    last_cost: 18.50,
-    next_po_cost: 17.25,
-    effective_cost: 18.50,
-    benchmark_price: 26.75,
-    inventory_lbs: 450,
-    weeks_on_hand: 1.8,
-    incoming_pos_week: 2400,
-    recent_gp_percent: 32.5,
-    lifetime_gp_percent: 30.2,
-    median_gp_percent: 31.4,
-    usda_today: 19.85,
-    seven_day_delta: 2.1,
-    thirty_vs_ninety_delta: 0.5,
-    one_year_delta: 12.8,
+    storage: "Frozen", // Assumed, since not labeled frozen
+    ai_price: 4.88,
+    last_cost: 4.47,
+    next_po_cost: 0.0,
+    effective_cost: 4.47,
+    benchmark_price: 5.99, // Using Michael's Price as a benchmark
+    inventory_lbs: 10810.99,
+    weeks_on_hand: 12.7,
+    incoming_pos_week: 3000,
+    recent_gp_percent: 8.4,
+    lifetime_gp_percent: 25.4, // Assuming this is represented by Michael's price margin
+    median_gp_percent: 10.5, // Estimated midpoint (for illustration; adjust if needed)
+    usda_today: 0, // Not provided
+    seven_day_delta: 0, // Not provided
+    thirty_vs_ninety_delta: 0, // Not provided
+    one_year_delta: 0, // Not provided
     rationale: [
-      "Premium quality cut with consistent demand",
-      "Recent supplier agreement reduced PO cost by 7%",
-      "Competitor pricing trending upward by 3-5%",
-      "Seasonal demand increase projected for Q3",
-      "Historical GP stability within target range"
+      "**Volume Analysis**",
+      "  Weekly sales 854 lbs, **down 45.2%** vs 2-month average",
+      "  Slow velocity converts to **12.7 weeks** of supply — inventory not turning",
+      "  Lower pricing expected to re-ignite demand from value-focused accounts",
+      "**Risk Assesment**",
+      "  High spoilage/holding-cost risk; GP volatility = **3.78 pts**",
+      "  Cutting margin 3.8 pts is meaningful yet controlled",
+      "  Stays within historical GP band (**6.7%–14.3%**); avoids price war bottom",
+      "**Strategy**",
+      "  Implement **7.0% margin** (~$4.84 sell price)",
+      "  ~4% price drop aimed at accelerating depletion while protecting some profit",
+      "  Monitor weekly lift target, be ready to tighten further once inventory normalizes"
     ],
-    updated_at: new Date("2025-07-15T08:30:00Z").toISOString()
+    updated_at: new Date("2025-06-26T00:00:00Z").toISOString()
   },
+  {
+    id: "SKU002", // Replace with actual SKU code if available
+    sku_code: "SKU002",
+    description: "Ribeye Lip On, Nebraska Gold", // Update with actual description if known
+    category: "Beef", // Update if known (e.g., "Beef", "Pork")
+    storage: "Frozen", // Assumed based on freezer-risk comment
+    ai_price: 11.11, // Implied from 3.5% margin over $10.73 cost
+    last_cost: 11.83,
+    next_po_cost: 10.73,
+    effective_cost: 10.73,
+    benchmark_price: 0, // Not shown; use if Michael's Price is available
+    inventory_lbs: 6638.9,
+    weeks_on_hand: 5.1,
+    incoming_pos_week: 2200,
+    recent_gp_percent: 4.4,
+    lifetime_gp_percent: 4.1,
+    median_gp_percent: 4.1,
+    usda_today: 0, // N/A
+    seven_day_delta: 0.0,
+    thirty_vs_ninety_delta: 0.0,
+    one_year_delta: 0.0,
+    rationale: [
+      "**Inventory Position**",
+      "  5.1 weeks on hand (target 1.4 weeks)",
+      "  Falls in 5.0–5.9 week 'freezer-risk' band → requires aggressive margin cut",
+      "**Market Trends**",
+      "  No USDA quote; rely on internal GP trend",
+      "  Recent GP ↑ vs history, indicating room to pull back margin without dipping below usual floor",
+      "**Volume Analysis**",
+      "  Weekly volume −57% vs 2-month average",
+      "  Sharp demand drop reinforces need for price stimulus",
+      "**Risk Assesment**",
+      "  Spoilage & carrying-cost risk outweigh margin erosion risk",
+      "  GP volatility moderate (σ² 2.34 pts) → 0.9 pt cut ≈ 2σ move, justified by high inventory",
+      "**Strategy**",
+      " Reduce margin from 4.4% to 3.5% (-0.9 pt)",
+      " Aggressive enough to protect inventory, still within historical GP range and above cost"
+      ],
+      updated_at: new Date("2025-07-16T00:00:00Z").toISOString()
+    },
+    {
+      id: "BF101",
+      sku_code: "BF101",
+      description: "Short Loin 12oz",
+      category: "Beef",
+      storage: "Frozen",
+      ai_price: 24.99,
+      last_cost: 18.50,
+      next_po_cost: 17.25,
+      effective_cost: 18.50,
+      benchmark_price: 26.75,
+      inventory_lbs: 450,
+      weeks_on_hand: 1.8,
+      incoming_pos_week: 2400,
+      recent_gp_percent: 32.5,
+      lifetime_gp_percent: 30.2,
+      median_gp_percent: 31.4,
+      usda_today: 19.85,
+      seven_day_delta: 2.1,
+      thirty_vs_ninety_delta: 0.5,
+      one_year_delta: 12.8,
+      rationale: [
+        "Premium quality cut with consistent demand",
+        "Recent supplier agreement reduced PO cost by 7%",
+        "Competitor pricing trending upward by 3-5%",
+        "Seasonal demand increase projected for Q3",
+        "Historical GP stability within target range"
+      ],
+      updated_at: new Date("2025-07-15T08:30:00Z").toISOString()
+    },
   {
     id: "PL105",
     sku_code: "PL105",
@@ -127,6 +204,34 @@ const manualShowcaseSKUs: SKU[] = [
 
 export const upcomingPOs: Record<string, POData[]> = {
   // Detailed PO data for our showcase SKUs
+  "15021320": [
+    {
+      po_number: "PO-47123",
+      required_date: "2025-07-30",
+      delivery_quantity: 1500,
+      cost: 4.25
+    },
+    {
+      po_number: "PO-47245",
+      required_date: "2025-08-15",
+      delivery_quantity: 2000,
+      cost: 4.20
+    }
+  ],
+  "SKU002": [
+    {
+      po_number: "PO-46890",
+      required_date: "2025-08-05",
+      delivery_quantity: 1200,
+      cost: 10.73
+    },
+    {
+      po_number: "PO-47005",
+      required_date: "2025-08-20",
+      delivery_quantity: 1500,
+      cost: 10.65
+    }
+  ],
   "BF101": [
     {
       po_number: "PO-45782",
