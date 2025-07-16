@@ -34,9 +34,9 @@ export interface POData {
 // Manually defined showcase SKUs that will override auto-generated ones
 const manualShowcaseSKUs: SKU[] = [
   {
-    id: "15021320",
-    sku_code: "15021320",
-    description: "Short Loin 0X1, Mex Gusi",
+    id: "BF050",
+    sku_code: "BF050",
+    description: "Short Loin Choice",
     category: "Beef",
     storage: "Frozen", // Assumed, since not labeled frozen
     ai_price: 4.88,
@@ -71,9 +71,9 @@ const manualShowcaseSKUs: SKU[] = [
     updated_at: new Date("2025-06-26T00:00:00Z").toISOString()
   },
   {
-    id: "SKU002", // Replace with actual SKU code if available
-    sku_code: "SKU002",
-    description: "Ribeye Lip On, Nebraska Gold", // Update with actual description if known
+    id: "BF002", // Replace with actual SKU code if available
+    sku_code: "BF002",
+    description: "Ribeye Lip On, IBP", // Update with actual description if known
     category: "Beef", // Update if known (e.g., "Beef", "Pork")
     storage: "Frozen", // Assumed based on freezer-risk comment
     ai_price: 11.11, // Implied from 3.5% margin over $10.73 cost
