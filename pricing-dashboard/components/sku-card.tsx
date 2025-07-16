@@ -145,23 +145,17 @@ export function SKUCard({ sku }: SKUCardProps) {
                     <span className="font-medium">{formatCurrency(sku.last_cost)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">
-                      <button
-                        className="hover:text-blue-600 hover:underline focus:outline-none"
-                        onClick={() => setIsPOModalOpen(true)}
-                      >
-                        Next PO Cost:
-                      </button>
-                    </span>
-                    <span className="font-medium">{sku.next_po_cost !== null && sku.next_po_cost !== undefined ? formatCurrency(sku.next_po_cost) : 'N/A'}</span>
+                    <span className="text-slate-600">Next PO Cost:</span>
+                    <button
+                      className="font-medium text-blue-600 hover:underline focus:outline-none"
+                      onClick={() => setIsPOModalOpen(true)}
+                    >
+                      {sku.next_po_cost !== null && sku.next_po_cost !== undefined ? formatCurrency(sku.next_po_cost) : 'N/A'}
+                    </button>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-600">Effective Cost:</span>
                     <span className="font-medium">{formatCurrency(sku.effective_cost ?? sku.last_cost)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Benchmark Price:</span>
-                    <span className="font-medium">{formatCurrency(sku.benchmark_price)}</span>
                   </div>
                 </div>
               </CardContent>
@@ -177,15 +171,13 @@ export function SKUCard({ sku }: SKUCardProps) {
                     <span className="font-medium">{sku.inventory_lbs.toLocaleString()} lbs</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">
-                      <button
-                        className="hover:text-blue-600 hover:underline focus:outline-none"
-                        onClick={() => setIsPOModalOpen(true)}
-                      >
-                        Incoming POs this week:
-                      </button>
-                    </span>
-                    <span className="font-medium">{(sku.incoming_pos_week ?? 0).toLocaleString()} lbs</span>
+                    <span className="text-slate-600">Incoming POs this week:</span>
+                    <button
+                      className="font-medium text-blue-600 hover:underline focus:outline-none"
+                      onClick={() => setIsPOModalOpen(true)}
+                    >
+                      {(sku.incoming_pos_week ?? 0).toLocaleString()} lbs
+                    </button>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-600">Weeks on Hand:</span>
@@ -272,9 +264,18 @@ export function SKUCard({ sku }: SKUCardProps) {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b text-left">
-                    <th className="px-4 py-3 text-slate-600 font-medium">PO NUMBER</th>
-                    <th className="px-4 py-3 text-slate-600 font-medium">REQUIRED DATE</th>
-                    <th className="px-4 py-3 text-slate-600 font-medium">DELIVERY QUANTITY</th>
+                    <th className="px-4 py-3 text-slate-600 font-medium">
+                      <div>PO</div>
+                      <div>NUMBER</div>
+                    </th>
+                    <th className="px-4 py-3 text-slate-600 font-medium">
+                      <div>REQUIRED</div>
+                      <div>DATE</div>
+                    </th>
+                    <th className="px-4 py-3 text-slate-600 font-medium">
+                      <div>DELIVERY</div>
+                      <div>QUANTITY</div>
+                    </th>
                     <th className="px-4 py-3 text-slate-600 font-medium">COST</th>
                   </tr>
                 </thead>
@@ -283,7 +284,17 @@ export function SKUCard({ sku }: SKUCardProps) {
                     upcomingPOs[sku.id].map((po: POData, idx: number) => (
                       <tr key={idx} className="border-b">
                         <td className="px-4 py-4 font-medium">{po.po_number}</td>
-                        <td className="px-4 py-4">{new Date(po.required_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</td>
+                        <td className="px-4 py-4">
+                          {(() => {
+                            const date = new Date(po.required_date);
+                            return (
+                              <>
+                                {date.toLocaleDateString('en-US', { weekday: 'long' })},<br/>
+                                {date.toLocaleDateString('en-US', { month: 'short' })} {date.getDate()}, {date.getFullYear()}
+                              </>
+                            );
+                          })()}
+                        </td>
                         <td className="px-4 py-4">{po.delivery_quantity.toLocaleString()} lbs</td>
                         <td className="px-4 py-4">{formatCurrency(po.cost)}</td>
                       </tr>
