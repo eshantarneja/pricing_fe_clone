@@ -1,3 +1,32 @@
+export interface POData {
+  po_number: string;
+  required_date: string;
+  delivery_quantity: number;
+  cost: number;
+}
+
+// PO data for the popup
+export const upcomingPOs: Record<string, POData[]> = {
+  "BF001": [{
+    po_number: "37918",
+    required_date: "2025-07-11",
+    delivery_quantity: 9240,
+    cost: 0.01
+  }],
+  "BF002": [{
+    po_number: "38225",
+    required_date: "2025-07-15",
+    delivery_quantity: 5600,
+    cost: 3.25
+  }],
+  "PL001": [{
+    po_number: "37919",
+    required_date: "2025-07-12",
+    delivery_quantity: 4200,
+    cost: 7.50
+  }]
+};
+
 // Extended mock data with 1000+ SKUs for pagination testing
 export const mockSKUs = [
   // Original SKUs
@@ -9,9 +38,12 @@ export const mockSKUs = [
     storage: "Fresh",
     ai_price: 24.99,
     last_cost: 18.5,
+    next_po_cost: 0.01,
+    effective_cost: 18.5,
     benchmark_price: 26.5,
     inventory_lbs: 450,
     weeks_on_hand: 2.3,
+    incoming_pos_week: 9240,
     recent_gp_percent: 35.1,
     lifetime_gp_percent: 32.8,
     median_gp_percent: 34.2,
@@ -260,13 +292,14 @@ export const mockSKUs = [
 
     const basePrice = category === "Seafood" ? 15 + (i % 20) : category === "Beef" ? 8 + (i % 25) : 5 + (i % 15)
 
-    const aiPrice = basePrice + Math.random() * 5
-    const lastCost = aiPrice * (0.6 + Math.random() * 0.2)
-    const benchmarkPrice = aiPrice * (1 + (Math.random() * 0.3 - 0.15))
+    // Use deterministic values based on index instead of random to prevent hydration errors
+    const aiPrice = basePrice + (i % 5) + 1
+    const lastCost = aiPrice * (0.6 + (i % 5) / 25)
+    const benchmarkPrice = aiPrice * (1 + ((i % 7) / 20 - 0.15))
 
-    const recentGP = Number((25 + Math.random() * 15).toFixed(1))
-    const lifetimeGP = Number((25 + Math.random() * 15).toFixed(1))
-    const medianGP = Number(((recentGP + lifetimeGP) / 2 + (Math.random() * 4 - 2)).toFixed(1))
+    const recentGP = Number((25 + (i % 15)).toFixed(1))
+    const lifetimeGP = Number((25 + ((i + 3) % 15)).toFixed(1))
+    const medianGP = Number(((recentGP + lifetimeGP) / 2 + ((i % 4) - 2)).toFixed(1))
 
     return {
       id: `${prefix}${String(i + 100).padStart(3, "0")}`,
@@ -276,16 +309,19 @@ export const mockSKUs = [
       storage,
       ai_price: Number(aiPrice.toFixed(2)),
       last_cost: Number(lastCost.toFixed(2)),
+      next_po_cost: i % 5 === 0 ? Number((lastCost * 0.8).toFixed(2)) : null,
+      effective_cost: Number(lastCost.toFixed(2)),
       benchmark_price: Number(benchmarkPrice.toFixed(2)),
-      inventory_lbs: Math.floor(Math.random() * 1500),
-      weeks_on_hand: Number((Math.random() * 4).toFixed(1)),
+      inventory_lbs: Math.floor(100 + (i % 15) * 100),
+      weeks_on_hand: Number(((i % 40) / 10).toFixed(1)),
+      incoming_pos_week: i % 5 === 0 ? 1000 + (i * 100) % 9000 : 0,
       recent_gp_percent: recentGP,
       lifetime_gp_percent: lifetimeGP,
       median_gp_percent: medianGP,
-      usda_today: Number((aiPrice * (0.8 + Math.random() * 0.4)).toFixed(2)),
-      seven_day_delta: Number((Math.random() * 6 - 3).toFixed(1)),
-      thirty_vs_ninety_delta: Number((Math.random() * 4 - 2).toFixed(1)),
-      one_year_delta: Number((Math.random() * 30 - 5).toFixed(1)),
+      usda_today: Number((aiPrice * (0.8 + (i % 8) / 20)).toFixed(2)),
+      seven_day_delta: Number(((i % 6) - 3).toFixed(1)),
+      thirty_vs_ninety_delta: Number(((i % 4) - 2).toFixed(1)),
+      one_year_delta: Number(((i % 30) - 5).toFixed(1)),
       rationale: [
         "Market analysis supports current pricing strategy",
         "Inventory levels align with demand forecasting",
@@ -293,7 +329,8 @@ export const mockSKUs = [
         "Cost structure optimization based on supplier agreements",
         "Consumer demand patterns favor this price point",
       ],
-      updated_at: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
+      // Use a fixed date to prevent hydration errors
+      updated_at: new Date("2025-07-10T10:00:00Z").toISOString(),
     }
   }),
 ]
