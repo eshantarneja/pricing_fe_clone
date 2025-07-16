@@ -20,11 +20,14 @@ export default function Dashboard() {
               />
             </svg>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            Moesle Pricing Portal
+          
+          {/* Simple solid color text with ample spacing */}
+          <h1 className="font-bold text-indigo-600 mb-2" style={{ fontSize: '60px', lineHeight: '1.2' }}>
+            Pricing Portal
           </h1>
-          <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Search any Moesle fresh-beef SKU to view AI-recommended pricing and insights
+          
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-4" style={{ fontSize: '24px', lineHeight: '1.4' }}>
+            Search any SKU to view AI-recommended pricing and insights
           </p>
 
           {/* Export Buttons */}
@@ -37,7 +40,7 @@ export default function Dashboard() {
             </button>
             <button className="flex items-center px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12" />
               </svg>
               ERP
             </button>
